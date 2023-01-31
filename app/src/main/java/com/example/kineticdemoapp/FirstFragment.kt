@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.kineticdemoapp.databinding.FragmentFirstBinding
 
+import org.kin.kinetic.KineticSdk
+
+
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
@@ -35,10 +38,15 @@ class FirstFragment : Fragment() {
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+        
+        binding.buttonInit.setOnClickListener {
+            binding.textviewFirst.text = "Banana"
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }
