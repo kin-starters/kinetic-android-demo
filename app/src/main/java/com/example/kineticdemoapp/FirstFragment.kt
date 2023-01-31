@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.kineticdemoapp.databinding.FragmentFirstBinding
-
+import org.kin.kinetic.Keypair
 import org.kin.kinetic.KineticSdk
+import kotlinx.coroutines.*
+import org.kin.kinetic.KineticSdkConfig
 
+private var kinetic: KineticSdk? = null
+private val kineticNetworkScope = CoroutineScope(Dispatchers.IO)
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -41,6 +45,18 @@ class FirstFragment : Fragment() {
         
         binding.buttonInit.setOnClickListener {
             binding.textviewFirst.text = "Banana"
+
+            kineticNetworkScope.launch {
+                kinetic = KineticSdk.setup(
+                    KineticSdkConfig(
+                        "https://sandbox.kinetic.host",
+                        "devnet",
+                        407,
+                    )
+                )
+            }
+
+            binding.textviewFirst.text = kinetic.toString()
         }
     }
 
